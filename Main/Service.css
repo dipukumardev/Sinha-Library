@@ -1,0 +1,80 @@
+/* Reset some default styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.service-section {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 100vh;
+}
+
+.service-box {
+    flex: 1 1 calc(25% - 20px); /* Four boxes per row with space */
+    margin: 10px;
+    border: 2px solid black;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.service-box:hover {
+    transform: scale(1.05);
+}
+
+.icon-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.icon-text img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.icon-text h2 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.service-box p {
+    font-size: 1rem;
+}
+
+/* Responsive Design for Tablets */
+@media (max-width: 768px) {
+
+
+    .service-box {
+        flex: 1 1 calc(50% - 20px); /* Two boxes per row */
+    }
+}
+
+/* Responsive Design for Mobile Phones */
+@media (max-width: 480px) {
+    .service-section {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100vw;
+        height: auto;
+    }
+    
+    .service-box {
+        flex: 1 1 calc(100% - 20px); /* One box per row */
+    }
+}

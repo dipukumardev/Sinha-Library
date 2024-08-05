@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinha Library</title>
+    <link rel="shortcut icon" href="/image/facicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <div class="header">
+            <img src="Sinha library.jpg" alt="Library Logo" id="logo" class="logo">
+            <div class="title-section">
+                <h1>SINHA LIBRARY</h1>
+                <h2>Best Place For Self Study</h2>
+                <h3>LIBRARY MEMBERSHIP FORM</h3>
+            </div>
+        </div>
+        <form id="libraryForm">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="member_id">Member ID:</label>
+                    <input type="text" id="member_id" name="member_id" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Full Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fathersName">Father's Name:</label>
+                    <input type="text" id="fathersName" name="fathersName" required>
+                </div>
+                <div class="form-group">
+                    <label for="currentAddress">Current Address:</label>
+                    <input type="text" id="currentAddress" name="currentAddress" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="guardiansAddress">Guardian's Address:</label>
+                    <input type="text" id="guardiansAddress" name="guardiansAddress" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <input type="radio" id="male" name="gender" value="Male" required> Male
+                    <input type="radio" id="female" name="gender" value="Female" required> Female
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="contactNo">Contact No.:</label>
+                    <input type="text" id="contactNo" name="contactNo" required>
+                </div>
+                <div class="form-group">
+                    <label for="guardiansNo">Guardian's No.:</label>
+                    <input type="text" id="guardiansNo" name="guardiansNo" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="identificationType">Identification Proof Type:</label>
+                    <select id="identificationType" name="identificationType" required>
+                        <option value="Aadhar Card">Aadhar Card</option>
+                        <option value="PAN Card">PAN Card</option>
+                        <option value="School ID">School ID</option>
+                        <option value="College ID">College ID</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="examPreparing">Exam Preparing For:</label>
+                    <input type="text" id="examPreparing" name="examPreparing" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="slots">SLOTS:</label>
+                    <input type="checkbox" name="slots" value="Full Time"> Full Time Reserved Table
+                    <input type="checkbox" name="slots" value="6 am to 10 am"> 6 am to 10 am
+                    <input type="checkbox" name="slots" value="10 am to 2 pm"> 10 am to 2 pm
+                    <input type="checkbox" name="slots" value="2 pm to 6 pm"> 2 pm to 6 pm
+                    <input type="checkbox" name="slots" value="6 pm to 10 pm"> 6 pm to 10 pm
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="amountPaid">Amount Paid:</label>
+                    <input type="text" id="amountPaid" name="amountPaid" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="studentImageFile">Student's Image:</label>
+                    <input type="file" id="studentImageFile" name="studentImageFile" accept="image/*" required onchange="previewStudentImage(event)">
+                    <img id="studentImagePreview" src="" alt="Student Image Preview" style="display:none; width:100px; height:auto;">
+                </div>
+                <div class="form-group">
+                    <label for="studentSignatureFile">Student's Signature:</label>
+                    <input type="file" id="studentSignatureFile" name="studentSignatureFile" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="authorizedSignatureFile">Authorized Signature:</label>
+                    <input type="file" id="authorizedSignatureFile" name="authorizedSignatureFile" accept="image/*" required>
+                </div>
+            </div>
+            <div class="terms-and-conditions">
+                <h4>Terms and Conditions</h4>
+                <p>
+                    1. The library membership is non-transferable and valid only for the registered individual.<br>
+                    2. Members must return books within the stipulated time to avoid late fees.<br>
+                    3. The library reserves the right to terminate membership if the terms and conditions are violated.<br>
+                    4. Members are responsible for maintaining the condition of library materials.<br>
+                </p>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="termsAndConditions">
+                        <input type="checkbox" id="termsAndConditions" name="termsAndConditions" required>
+                        I have read and agree to the <a href="terms-and-conditions.html" target="_blank">Terms and Conditions</a>.
+                    </label>
+                </div>
+            </div>
+            <div class="form-row">
+                <button type="button" onclick="generatePDF()">Download PDF</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

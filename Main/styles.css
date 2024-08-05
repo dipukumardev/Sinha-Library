@@ -1,0 +1,235 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#Landing_page {
+    padding: 0; /* Remove padding from the container */
+}
+
+nav {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #8B4513; /* Use a shade of brown */
+    padding: 10px 20px;
+    position: fixed;
+    width: 100vw;
+    height: 10vh;
+    z-index: 1000; /* Ensure navbar is above other content */
+    margin: 0; /* Ensure no margin around the navbar */
+}
+
+.logo img {
+    height: 70px;
+    width: auto;
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 0 15px;
+    padding-top: 2vh;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #FFFACD; /* Light yellow to match the logo */
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: #FFD700; /* A brighter shade of yellow for hover effect */
+}
+
+/* Mobile and Tablet Styles */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    height: 3px;
+    width: 25px;
+    background-color: #FFFACD;
+    margin: 4px 0;
+}
+
+/* nav bar login page */
+/* From Uiverse.io by KINGFRESS */ 
+button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #171717;
+    padding: 1em 2em;
+    border: none;
+    border-radius: .6rem;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  button span:not(:nth-child(6)) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 30px;
+    width: 30px;
+    background-color: #0c66ed;
+    border-radius: 50%;
+    transition: .6s ease;
+  }
+  
+  button span:nth-child(6) {
+    position: relative;
+  }
+  
+  button span:nth-child(1) {
+    transform: translate(-3.3em, -4em);
+  }
+  
+  button span:nth-child(2) {
+    transform: translate(-6em, 1.3em);
+  }
+  
+  button span:nth-child(3) {
+    transform: translate(-.2em, 1.8em);
+  }
+  
+  button span:nth-child(4) {
+    transform: translate(3.5em, 1.4em);
+  }
+  
+  button span:nth-child(5) {
+    transform: translate(3.5em, -3.8em);
+  }
+  
+  button:hover span:not(:nth-child(6)) {
+    transform: translate(-50%, -50%) scale(4);
+    transition: 1.5s ease;
+  }
+    
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #8B4513;
+        position: absolute;
+        margin-top:30px;
+        left: 0;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+}
+
+/* Image Slider Styles */
+.slider {
+    position: relative;
+    width: 100%;
+    height: 80vh; /* Adjust the height as needed */
+    overflow: hidden;
+    margin: 0; /* Remove margin around the slider */
+}
+
+.slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none; /* Hide all slides initially */
+}
+
+.slider img:first-child {
+    display: block; /* Show the first slide initially */
+}
+
+
+
+/* Stats Section Styles */
+.stats-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 20vh;
+    background-color: #1E90FF; /* Bright blue */
+    color: #FFFFFF; /* White text */
+}
+
+.stats-section .stat {
+    text-align: center;
+}
+
+.stats-section .stat h2 {
+    margin: 0;
+    font-size: 2em;
+}
+
+.stats-section .stat p {
+    margin: 0;
+    font-size: 1em;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .stats-section {
+        flex-direction: column;
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .stats-section .stat {
+        margin: 10px 0;
+    }
+
+    .stats-section .stat h2 {
+        font-size: 1.5em;
+    }
+
+    .stats-section .stat p {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-section {
+        flex-direction: row;
+        height: auto;
+        padding: 15px 0;
+    }
+
+    .stats-section .stat {
+        margin: 5px 0;
+    }
+
+    .stats-section .stat h2 {
+        font-size: 1em;
+    }
+
+    .stats-section .stat p {
+        font-size: 0.8em;
+    }
+}
