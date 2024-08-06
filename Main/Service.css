@@ -18,7 +18,6 @@ body, html {
 .service-box {
     flex: 1 1 calc(25% - 20px); /* Four boxes per row with space */
     margin: 10px;
-    border: 2px solid black;
     border-radius: 2px;
     display: flex;
     flex-direction: column;

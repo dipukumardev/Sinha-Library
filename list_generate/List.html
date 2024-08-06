@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinha Library</title>
+    <link rel="shortcut icon" href="/image/facicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="List.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Total Amount</h1>
+        <form id="todo-form">
+            <input type="text" id="member_id" placeholder="Member ID" required>
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="number" id="amount" placeholder="Amount" required>
+            <input type="date" id="registration_date" required>
+            <button type="submit">Add</button>
+        </form>
+        <ul id="todo-list"></ul>
+        <button id="clear-button">Clear</button>
+        <button id="download-button">Download</button>
+        <div class="total-container">
+            <h2>Total Amount</h2>
+            <p id="total-amount">0.00</p>
+        </div>
+        <div class="data-container">
+            <h2>Data</h2>
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Member ID</th>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Registration Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be appended here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="List.js"></script>
+</body>
+</html>

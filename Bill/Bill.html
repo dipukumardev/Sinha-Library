@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinha Library</title>
+    <link rel="shortcut icon" href="/image/facicon/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="date"] {
+            padding: 5px;
+        }
+        .form-group .notification {
+            color: red;
+            font-size: 0.9em;
+        }
+        .form-group button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Billing Form</h1>
+        <img src="/image/Logo/Sinha library.jpg" alt="Logo" style="max-width: 100px; display: block; margin: 0 auto;">
+        <form id="billingForm">
+            <div class="form-group">
+                <label for="member_id">Member ID:</label>
+                <input type="text" id="member_id" name="member_id" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="number">Contact Number:</label>
+                <input type="tel" id="number" name="number" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="payment_date">Payment Date:</label>
+                <input type="date" id="payment_date" name="payment_date" required>
+                <div class="notification" id="notification"></div>
+            </div>
+            <div class="form-group">
+                <label for="payment_mode">Payment Mode:</label>
+                <select id="payment_mode" name="payment_mode" required>
+                    <option value="cash">Cash</option>
+                    <option value="online">Online</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="hidden" id="expiration_date" name="expiration_date">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        document.getElementById('payment_date').addEventListener('change', function () {
+            const paymentDate = new Date(this.value);
+            const expirationDate = new Date(paymentDate);
+            expirationDate.setDate(expirationDate.getDate() + 30);
+            const today = new Date();
+            const timeDiff = paymentDate.getTime() - today.getTime();
+            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+            if (daysDiff <= 30) {
+                document.getElementById('notification').innerText = 'Payment date is within the next 30 days.';
+            } else {
+                document.getElementById('notification').innerText = '';
+            }
+
+            document.getElementById('expiration_date').value = expirationDate.toISOString().split('T')[0];
+        });
+
+        document.getElementById('billingForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            generatePDF();
+            sendEmail();
+        });
+
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const form = document.getElementById('billingForm');
+            const memberID = form.member_id.value;
+            const name = form.name.value;
+            const number = form.number.value;
+            const email = form.email.value;
+            const paymentDate = form.payment_date.value;
+            const paymentMode = form.payment_mode.value;
+            const expirationDate = form.expiration_date.value;
+
+            doc.text(20, 20, 'Billing Form');
+            doc.text(20, 30, `Member ID: ${memberID}`);
+            doc.text(20, 40, `Name: ${name}`);
+            doc.text(20, 50, `Contact Number: ${number}`);
+            doc.text(20, 60, `Email: ${email}`);
+            doc.text(20, 70, `Payment Date: ${paymentDate}`);
+            doc.text(20, 80, `Payment Mode: ${paymentMode}`);
+            doc.text(20, 90, `Note: Payment is valid until ${expirationDate} (30 days from the payment date).`);
+
+            doc.save('billing_form.pdf');
+        }
+
+        async function sendEmail() {
+            const form = document.getElementById('billingForm');
+            const memberID = form.member_id.value;
+            const name = form.name.value;
+            const number = form.number.value;
+            const email = form.email.value;
+            const paymentDate = form.payment_date.value;
+            const expirationDate = form.expiration_date.value;
+
+            const response = await fetch('/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    memberID,
+                    name,
+                    number,
+                    email,
+                    paymentDate,
+                    expirationDate
+                })
+            });
+
+            if (response.ok) {
+                alert('Email sent successfully!');
+            } else {
+                alert('Failed to send email.');
+            }
+        }
+    </script>
+</body>
+</html>

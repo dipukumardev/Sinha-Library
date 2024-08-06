@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinha Library</title>
+    <link rel="shortcut icon" href="/image/facicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="Expense.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Expense Tracker</h1>
+        <form id="expense-form">
+            <div class="form-group">
+                <label for="expense-name">Name of Expense</label>
+                <input type="text" id="expense-name" required>
+            </div>
+            <div class="form-group">
+                <label for="expense-amount">Amount</label>
+                <input type="number" id="expense-amount" required>
+            </div>
+            <div class="form-group">
+                <label for="expense-date">Date</label>
+                <input type="date" id="expense-date" required>
+            </div>
+            <button type="submit">Add Expense</button>
+            <button type="button" id="clear-expenses">Clear</button>
+            <button type="button" id="download-expenses">Download</button>
+        </form>
+        <table id="expense-table">
+            <thead>
+                <tr>
+                    <th>Serial No.</th>
+                    <th>Date</th>
+                    <th>Name of Expense</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <div class="total">
+            <strong>Total Amount: <span id="total-amount">0</span></strong>
+        </div>
+    </div>
+    <script src="Expense.js"></script>
+</body>
+</html>
