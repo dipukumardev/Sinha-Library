@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinha Library</title>
+    <link rel="shortcut icon" href="/image/facicon/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .user-data-container {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .user-data {
+            background-color: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form id="studentForm">
+            <div class="form-group">
+                <label for="studentName">Student Name</label>
+                <input type="text" id="studentName" name="studentName" required>
+            </div>
+            <div class="form-group">
+                <label for="chosenDate">Choose the Date</label>
+                <input type="date" id="chosenDate" name="chosenDate" required>
+            </div>
+            <div class="form-group">
+                <label for="expireDate">Expire Date</label>
+                <input type="date" id="expireDate" name="expireDate" required>
+            </div>
+            <button type="button" id="addButton">Add</button>
+            <button type="button" id="downloadButton">Download</button>
+            <button type="button" id="clearButton">Clear</button>
+        </form>
+    </div>
+
+    <div class="user-data-container" id="userDataContainer"></div>
+
+    <script>
+        const userDataContainer = document.getElementById('userDataContainer');
+        let userEntries = JSON.parse(localStorage.getItem('userEntries')) || [];
+
+        function displayUserData() {
+            userDataContainer.innerHTML = '';
+            userEntries.forEach(entry => {
+                const userDataDiv = document.createElement('div');
+                userDataDiv.classList.add('user-data');
+                userDataDiv.innerHTML = `<strong>Student Name:</strong> ${entry.studentName}<br>
+                                         <strong>Chosen Date:</strong> ${entry.chosenDate}<br>
+                                         <strong>Expire Date:</strong> ${entry.expireDate}`;
+                userDataContainer.appendChild(userDataDiv);
+            });
+        }
+
+        displayUserData();
+
+        document.getElementById('addButton').addEventListener('click', function() {
+            const studentName = document.getElementById('studentName').value;
+            const chosenDate = document.getElementById('chosenDate').value;
+            const expireDate = document.getElementById('expireDate').value;
+
+            if (studentName && chosenDate && expireDate) {
+                const entry = { studentName, chosenDate, expireDate };
+                userEntries.push(entry);
+                localStorage.setItem('userEntries', JSON.stringify(userEntries));
+                displayUserData();
+                document.getElementById('studentForm').reset();
+            } else {
+                alert('Please fill out all fields');
+            }
+        });
+
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            if (userEntries.length > 0) {
+                const csvContent = 'data:text/csv;charset=utf-8,' + 
+                    ['Student Name,Chosen Date,Expire Date']
+                    .concat(userEntries.map(e => `${e.studentName},${e.chosenDate},${e.expireDate}`))
+                    .join('\n');
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement('a');
+                link.setAttribute('href', encodedUri);
+                link.setAttribute('download', 'user_data.csv');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('No data to download');
+            }
+        });
+
+        document.getElementById('clearButton').addEventListener('click', function() {
+            userEntries = [];
+            localStorage.setItem('userEntries', JSON.stringify(userEntries));
+            displayUserData();
+        });
+    </script>
+</body>
+</html>

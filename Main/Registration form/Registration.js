@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 let xOffset = 10;
                 for (const imgInfo of images) {
                     await addImageToPDF(doc, imgInfo.id, xOffset, yOffset, imgInfo.label);
-                    xOffset += 70; // Adjust the offset to place images in a row
+                    xOffset += 50; // Adjust the offset to place images in a row
                 }
 
                 // Add terms and conditions
@@ -75,15 +75,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 doc.setFontSize(10);
                 doc.text("Terms and Conditions", 10, yOffset);
                 yOffset += 10;
-                doc.text("1. The library membership is non-transferable and valid only for the registered individual.", 10, yOffset);
+                doc.text(" 1. Fee Once deposite will not be REFUNDED", 10, yOffset);
                 yOffset += 10;
-                doc.text("2. Members must return books within the stipulated time to avoid late fees.", 10, yOffset);
+                doc.text("If you ae absent it will be your responsibility", 10, yOffset);
                 yOffset += 10;
-                doc.text("3. The library reserves the right to terminate membership if the terms and conditions are violated.", 10, yOffset);
+                doc.text("3. You can leave your books and copy on your desk only if you are in full timing slot.", 10, yOffset);
                 yOffset += 10;
-                doc.text("4. Members are responsible for maintaining the condition of library materials.", 10, yOffset);
+                doc.text(" 4. if you choose full-time and you are absent for more than 7 days without informing, your seat will not be reserved.", 10, yOffset);
                 yOffset += 10;
-                doc.text("5. The library is not responsible for any personal belongings left unattended.", 10, yOffset);
+                doc.text(" 5. If you are not maintain the attendance register on daily basis then you are considered as absent ans your set will be removed.", 10, yOffset);
 
                 doc.save("membership_form.pdf");
             };
