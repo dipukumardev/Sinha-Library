@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sinha Library</title>
-    <link rel="shortcut icon" href="/image/facicon/favicon.ico" type="image/x-icon">
+    <title>Student Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -94,6 +93,8 @@
         let userEntries = JSON.parse(localStorage.getItem('userEntries')) || [];
 
         function displayUserData() {
+            // Sort the entries by expire date
+            userEntries.sort((a, b) => new Date(a.expireDate) - new Date(b.expireDate));
             userDataContainer.innerHTML = '';
             userEntries.forEach(entry => {
                 const userDataDiv = document.createElement('div');
