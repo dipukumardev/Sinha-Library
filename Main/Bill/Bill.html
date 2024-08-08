@@ -153,8 +153,8 @@
 <body>
     <div class="container" id="invoiceContainer">
         <div class="header">
-            <img src="/Main/image/Logo/Sinha library.jpg" alt="Library Logo" class="logo">
-            <h2>Invoice : INV42</h2>
+            <img src="./Sinha library.jpg" alt="Library Logo" class="logo">
+            <h2>Add some extra points</h2>
         </div>
 
         <div class="details">
@@ -172,12 +172,12 @@
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email"><br>
 
-                    <label for="idType">Please select an identification type:</label>
+                    <label for="idType">Please select Your slot:</label>
                     <select id="idType" name="idType" onchange="showInputField()">
                         <option value="" disabled selected>Select your option</option>
-                        <option value="aadhar">Aadhar Card</option>
-                        <option value="pan">PAN Card</option>
-                        <option value="school">School Number</option>
+                        <option value="aadhar">Full day [6am to 10pm</option>
+                        <option value="pan">Morning [6am to 12pm</option>
+                        <option value="school">Evening[2pm to 10pm]</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -239,17 +239,19 @@
             </tbody>
         </table>
 
-        <button onclick="downloadPDF()">Download PDF</button>
+        
 
         <!-- Terms and Conditions Section -->
         <div class="terms-conditions">
             <h3>Terms and Conditions</h3>
-            <p>1. All invoices are due within 30 days of receipt unless otherwise specified.</p>
-            <p>2. Late payments may incur a fee of 1.5% per month on the outstanding amount.</p>
-            <p>3. Refunds are only available if the service or product was not delivered as promised.</p>
-            <p>4. All disputes must be resolved within the jurisdiction of Dhanbad, Jharkhand.</p>
-            <p>5. For any questions regarding this invoice, please contact us at sinhalibrary9700@gmail.com.</p>
+            <p>1. Fee once deposited will not be REFUNDED.</p>
+            <p>2. If you are absent it will be your responsibility.</p>
+            <p>3. You can leave your books and copy on your desk only if you are in full timing slot.</p>
+            <p>4. If you are not maintain teh attendance register on daily basis then you are considered as absent and your seat will be removed.</p>
+            <p>5. If you choose full-time and you are absent for more than 7 days without informing, your seat will not be reserved.</p>
+            <p>6. For any questions regarding this invoice, please contact us at sinhalibrary9700@gmail.com. or  7319692439</p>
         </div>
+        <button onclick="downloadPDF()">Download PDF</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
