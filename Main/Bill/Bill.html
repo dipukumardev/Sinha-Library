@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice</title>
+    <title>Sinha Library</title>
+    <link rel="shortcut icon" href="/image/facicon/favicon.ico" type="image/x-icon">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -148,23 +149,13 @@
         button:hover {
             background-color: #0056b3;
         }
-
-        @media print {
-            .container {
-                width: 100%;
-                box-shadow: none;
-            }
-            .header img {
-                width: 100px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container" id="invoiceContainer">
         <div class="header">
-            <img src="/Main/image/Logo/Sinha library.jpg" alt="Library Logo" class="logo">
-            <h2>Invoice : INV42</h2>
+            <img src="./Sinha library.jpg" alt="Library Logo" class="logo">
+            <h2>Add some extra points</h2>
         </div>
 
         <div class="details">
@@ -173,15 +164,18 @@
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name"><br>
 
+
+
                     <label for="memberID">Member ID:</label>
                     <input type="text" id="memberID" name="memberID"><br>
 
-                    <label for="idType">Please select an identification type:</label>
+
+                    <label for="idType">Please select Your slot:</label>
                     <select id="idType" name="idType" onchange="showInputField()">
                         <option value="" disabled selected>Select your option</option>
-                        <option value="aadhar">Aadhar Card</option>
-                        <option value="pan">PAN Card</option>
-                        <option value="school">School Number</option>
+                        <option value="aadhar">Full day [6am to 10pm</option>
+                        <option value="pan">Morning [6am to 12pm</option>
+                        <option value="school">Evening[2pm to 10pm]</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -192,7 +186,7 @@
                 <p>Dhanbad, Jharkhand</p>
                 <p>Email: sinhalibrary9700@gmail.com</p>
                 <p>Phone: 7319692439</p>
-               <p>Website:</p> <a href="https://sinhalibrary.dipu.tech/">Sinha Library</a>
+                <a href="https://sinhalibrary.dipu.tech/">Website:Signalibrary</a>
             </div>
         </div>
 
@@ -244,17 +238,18 @@
             </tbody>
         </table>
 
-        <button onclick="downloadPDF()">Download PDF</button>
+        
 
         <!-- Terms and Conditions Section -->
         <div class="terms-conditions">
             <h3>Terms and Conditions</h3>
-            <p>1. All invoices are due within 30 days of receipt unless otherwise specified.</p>
-            <p>2. A late fee of 1.5% per month will be applied to overdue invoices.</p>
-            <p>3. All services and products are subject to availability.</p>
-            <p>4. Refunds are subject to review and are not guaranteed.</p>
-            <p>5. For any discrepancies or issues, please contact our support team within 7 days of receipt.</p>
+            <p>1. Fee once deposited will not be REFUNDED.</p>
+            <p>2. If you are absent it will be your responsibility.</p>
+            <p>3. You can leave your books and copy on your desk only if you are in full timing slot.</p>
+            <p>4. If you are not maintain teh attendance register on daily basis then you are considered as absent and your seat will be removed.</p>
+            <p>5. If you choose full-time and you are absent for more than 7 days without informing, your seat will not be reserved.</p>
         </div>
+        <button onclick="downloadPDF()">Download PDF</button>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -314,25 +309,17 @@
         }
 
         function downloadPDF() {
-            html2canvas(document.getElementById('invoiceContainer'), { scale: 2 }).then(canvas => {
+            html2canvas(document.getElementById('invoiceContainer')).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
                 const { jsPDF } = window.jspdf;
-                const doc = new jsPDF({
-                    orientation: 'p',
-                    unit: 'mm',
-                    format: 'a4',
-                });
-
+                const doc = new jsPDF();
                 const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
                 const imgHeight = canvas.height * imgWidth / canvas.width;
+                const heightLeft = imgHeight;
+
                 let position = 0;
-
-                while (position < imgHeight) {
-                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgWidth / canvas.width * imgHeight);
-                    position += 290; // Adding a small margin for the next page
-                    if (position < imgHeight) doc.addPage();
-                }
-
+                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                 doc.save('invoice.pdf');
             }).catch(error => {
                 console.error('Error generating PDF:', error);
