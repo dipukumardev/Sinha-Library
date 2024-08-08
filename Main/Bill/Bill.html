@@ -97,22 +97,14 @@
 
         .details {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
             margin-bottom: 20px;
         }
 
-        .left {
-            flex: 1;
-            margin-right: 20px;
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .right {
-            flex: 1;
-            text-align: right;
+        .left, .right {
+            flex: 1 1 45%;
+            margin-bottom: 20px;
             background-color: #f8f9fa;
             padding: 15px;
             border-radius: 5px;
@@ -149,6 +141,65 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+                padding: 10px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .logo {
+                width: 100px;
+                margin-bottom: 10px;
+            }
+
+            .left, .right {
+                flex: 1 1 100%;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            .invoice-table th, .invoice-table td {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 16px;
+            }
+
+            .logo {
+                width: 80px;
+            }
+
+            .invoice-table th, .invoice-table td {
+                font-size: 12px;
+                padding: 6px;
+            }
+
+            .form-section input, .form-section select, .form-section button {
+                width: calc(100% - 12px);
+                padding: 8px;
+            }
+
+            .terms-conditions h3 {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -164,29 +215,26 @@
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name"><br>
 
-
-
                     <label for="memberID">Member ID:</label>
                     <input type="text" id="memberID" name="memberID"><br>
-
 
                     <label for="idType">Please select Your slot:</label>
                     <select id="idType" name="idType" onchange="showInputField()">
                         <option value="" disabled selected>Select your option</option>
-                        <option value="aadhar">Full day [6am to 10pm</option>
-                        <option value="pan">Morning [6am to 12pm</option>
-                        <option value="school">Evening[2pm to 10pm]</option>
+                        <option value="aadhar">Full day [6am to 10pm]</option>
+                        <option value="pan">Morning [6am to 12pm]</option>
+                        <option value="school">Evening [2pm to 10pm]</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
             </form>
             <div class="right">
                 <p><strong>SINHA LIBRARY</strong></p>
-                <p>Address: surya vihar colony</p>
+                <p>Address: Surya Vihar Colony</p>
                 <p>Dhanbad, Jharkhand</p>
                 <p>Email: sinhalibrary9700@gmail.com</p>
                 <p>Phone: 7319692439</p>
-                <a href="https://sinhalibrary.dipu.tech/">Website:Signalibrary</a>
+                <a href="https://sinhalibrary.dipu.tech/">Website: Sinha Library</a>
             </div>
         </div>
 
@@ -238,15 +286,13 @@
             </tbody>
         </table>
 
-        
-
         <!-- Terms and Conditions Section -->
         <div class="terms-conditions">
             <h3>Terms and Conditions</h3>
             <p>1. Fee once deposited will not be REFUNDED.</p>
             <p>2. If you are absent it will be your responsibility.</p>
             <p>3. You can leave your books and copy on your desk only if you are in full timing slot.</p>
-            <p>4. If you are not maintain teh attendance register on daily basis then you are considered as absent and your seat will be removed.</p>
+            <p>4. If you are not maintain the attendance register on daily basis then you are considered as absent and your seat will be removed.</p>
             <p>5. If you choose full-time and you are absent for more than 7 days without informing, your seat will not be reserved.</p>
         </div>
         <button onclick="downloadPDF()">Download PDF</button>
