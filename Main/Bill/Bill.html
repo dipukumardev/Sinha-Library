@@ -3,176 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sinha Library</title>
-    <link rel="shortcut icon" href="/image/facicon/favicon.ico" type="image/x-icon">
+    <title>Invoice</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
         }
+
         .container {
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 1000px;
+            margin: 50px auto;
             padding: 20px;
-            border: 1px solid #ccc;
+            background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .container h1 {
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .invoice-table th, .invoice-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
             text-align: center;
         }
-        .form-group {
-            margin-bottom: 15px;
+
+        .invoice-table th {
+            background-color: #007bff;
+            color: white;
         }
-        .form-group label {
+
+        .hidden {
+            display: none;
+        }
+
+        .form-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .form-section label {
             display: block;
             margin-bottom: 5px;
+            font-weight: bold;
+            color: #495057;
         }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .form-group input[type="date"] {
-            padding: 5px;
-        }
-        .form-group .notification {
-            color: red;
-            font-size: 0.9em;
-        }
-        .form-group button {
-            display: block;
-            width: 100%;
+
+        .form-section input, .form-section select, .form-section button {
+            width: calc(100% - 16px);
             padding: 10px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
+            margin: 5px 0;
             border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+
+        .form-section button {
+            background-color: #007bff;
+            color: white;
+            border: none;
             cursor: pointer;
         }
-        .form-group button:hover {
-            background-color: #218838;
+
+        .form-section button:hover {
+            background-color: #0056b3;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        .logo {
+            width: 150px;
+            border-radius: 8px;
+        }
+
+        .details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .left {
+            flex: 1;
+            margin-right: 20px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .right {
+            flex: 1;
+            text-align: right;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .right p {
+            margin: 5px 0;
+        }
+
+        .terms-conditions {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .terms-conditions h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Billing Form</h1>
-        <img src="/image/Logo/Sinha library.jpg" alt="Logo" style="max-width: 100px; display: block; margin: 0 auto;">
-        <form id="billingForm">
-            <div class="form-group">
-                <label for="member_id">Member ID:</label>
-                <input type="text" id="member_id" name="member_id" required>
+    <div class="container" id="invoiceContainer">
+        <div class="header">
+            <img src="/Main/image/Logo/Sinha library.jpg" alt="Library Logo" class="logo">
+            <h2>Invoice : INV42</h2>
+        </div>
+
+        <div class="details">
+            <form id="userForm" class="left">
+                <div class="form-section">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name"><br>
+
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address"><br>
+
+                    <label for="memberID">Member ID:</label>
+                    <input type="text" id="memberID" name="memberID"><br>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email"><br>
+
+                    <label for="idType">Please select an identification type:</label>
+                    <select id="idType" name="idType" onchange="showInputField()">
+                        <option value="" disabled selected>Select your option</option>
+                        <option value="aadhar">Aadhar Card</option>
+                        <option value="pan">PAN Card</option>
+                        <option value="school">School Number</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </form>
+            <div class="right">
+                <p><strong>SINHA LIBRARY</strong></p>
+                <p>Address: surya vihar colony</p>
+                <p>Dhanbad, Jharkhand</p>
+                <p>Email: sinhalibrary9700@gmail.com</p>
+                <p>Phone: 7319692439</p>
             </div>
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="number">Contact Number:</label>
-                <input type="tel" id="number" name="number" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="payment_date">Payment Date:</label>
-                <input type="date" id="payment_date" name="payment_date" required>
-                <div class="notification" id="notification"></div>
-            </div>
-            <div class="form-group">
-                <label for="payment_mode">Payment Mode:</label>
-                <select id="payment_mode" name="payment_mode" required>
-                    <option value="cash">Cash</option>
-                    <option value="online">Online</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="hidden" id="expiration_date" name="expiration_date">
-                <button type="submit">Submit</button>
-            </div>
-        </form>
+        </div>
+
+        <div id="inputField" class="hidden form-section">
+            <label for="idValue" id="idLabel">Selected Value:</label>
+            <input type="text" id="idValue" name="idValue">
+            <button type="button" onclick="updateTable()">Update Table</button>
+        </div>
+
+        <h2>Invoice Table</h2>
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Invoice Date</th>
+                    <th>Program</th>
+                    <th>Start Date</th>
+                    <th>Expiry Date</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="invoiceBody">
+                <tr>
+                    <td data-label="invoiceDate" onclick="showInputField('invoiceDate')">--</td>
+                    <td data-label="program" onclick="showInputField('program')">--</td>
+                    <td data-label="startDate" onclick="showInputField('startDate')">--</td>
+                    <td data-label="expiryDate" onclick="showInputField('expiryDate')">--</td>
+                    <td data-label="amount" onclick="showInputField('amount')">--</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Enrollment Fee</td>
+                    <td data-label="enrollmentFee" onclick="showInputField('enrollmentFee')">--</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Discount</td>
+                    <td data-label="discount" onclick="showInputField('discount')">--</td>
+                </tr>
+                <tr>
+                    <td colspan="4"><strong>Final Amount</strong></td>
+                    <td data-label="finalAmount" onclick="showInputField('finalAmount')"><strong>--</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="4">Paid Amount</td>
+                    <td data-label="paidAmount" onclick="showInputField('paidAmount')">--</td>
+                </tr>
+                <tr>
+                    <td colspan="4">Due Amount</td>
+                    <td data-label="dueAmount" onclick="showInputField('dueAmount')">--</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button onclick="downloadPDF()">Download PDF</button>
+
+        <!-- Terms and Conditions Section -->
+        <div class="terms-conditions">
+            <h3>Terms and Conditions</h3>
+            <p>1. All invoices are due within 30 days of receipt unless otherwise specified.</p>
+            <p>2. Late payments may incur a fee of 1.5% per month on the outstanding amount.</p>
+            <p>3. Refunds are only available if the service or product was not delivered as promised.</p>
+            <p>4. All disputes must be resolved within the jurisdiction of Dhanbad, Jharkhand.</p>
+            <p>5. For any questions regarding this invoice, please contact us at sinhalibrary9700@gmail.com.</p>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
-        document.getElementById('payment_date').addEventListener('change', function () {
-            const paymentDate = new Date(this.value);
-            const expirationDate = new Date(paymentDate);
-            expirationDate.setDate(expirationDate.getDate() + 30);
-            const today = new Date();
-            const timeDiff = paymentDate.getTime() - today.getTime();
-            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        let currentType = '';
 
-            if (daysDiff <= 30) {
-                document.getElementById('notification').innerText = 'Payment date is within the next 30 days.';
-            } else {
-                document.getElementById('notification').innerText = '';
-            }
+        function showInputField(type) {
+            currentType = type;
+            const inputField = document.getElementById('inputField');
+            const idLabel = document.getElementById('idLabel');
+            const input = document.getElementById('idValue');
 
-            document.getElementById('expiration_date').value = expirationDate.toISOString().split('T')[0];
-        });
-
-        document.getElementById('billingForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            generatePDF();
-            sendEmail();
-        });
-
-        function generatePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            const form = document.getElementById('billingForm');
-            const memberID = form.member_id.value;
-            const name = form.name.value;
-            const number = form.number.value;
-            const email = form.email.value;
-            const paymentDate = form.payment_date.value;
-            const paymentMode = form.payment_mode.value;
-            const expirationDate = form.expiration_date.value;
-
-            doc.text(20, 20, 'Billing Form');
-            doc.text(20, 30, `Member ID: ${memberID}`);
-            doc.text(20, 40, `Name: ${name}`);
-            doc.text(20, 50, `Contact Number: ${number}`);
-            doc.text(20, 60, `Email: ${email}`);
-            doc.text(20, 70, `Payment Date: ${paymentDate}`);
-            doc.text(20, 80, `Payment Mode: ${paymentMode}`);
-            doc.text(20, 90, `Note: Payment is valid until ${expirationDate} (30 days from the payment date).`);
-
-            doc.save('billing_form.pdf');
+            input.type = (type === 'invoiceDate' || type === 'startDate' || type === 'expiryDate') ? 'date' : 'text';
+            idLabel.textContent = getLabelText(type);
+            inputField.classList.remove('hidden');
         }
 
-        async function sendEmail() {
-            const form = document.getElementById('billingForm');
-            const memberID = form.member_id.value;
-            const name = form.name.value;
-            const number = form.number.value;
-            const email = form.email.value;
-            const paymentDate = form.payment_date.value;
-            const expirationDate = form.expiration_date.value;
-
-            const response = await fetch('/send-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    memberID,
-                    name,
-                    number,
-                    email,
-                    paymentDate,
-                    expirationDate
-                })
-            });
-
-            if (response.ok) {
-                alert('Email sent successfully!');
-            } else {
-                alert('Failed to send email.');
+        function getLabelText(type) {
+            switch (type) {
+                case 'invoiceDate':
+                    return 'Invoice Date:';
+                case 'program':
+                    return 'Program:';
+                case 'startDate':
+                    return 'Start Date:';
+                case 'expiryDate':
+                    return 'Expiry Date:';
+                case 'amount':
+                    return 'Amount:';
+                case 'enrollmentFee':
+                    return 'Enrollment Fee:';
+                case 'discount':
+                    return 'Discount:';
+                case 'finalAmount':
+                    return 'Final Amount:';
+                case 'paidAmount':
+                    return 'Paid Amount:';
+                case 'dueAmount':
+                    return 'Due Amount:';
+                default:
+                    return '';
             }
+        }
+
+        function updateTable() {
+            if (currentType) {
+                const idValue = document.getElementById('idValue').value;
+                const tableCells = document.querySelectorAll(`[data-label='${currentType}']`);
+
+                tableCells.forEach(cell => {
+                    cell.textContent = idValue || '--';
+                });
+
+                document.getElementById('inputField').classList.add('hidden');
+            }
+        }
+
+        function downloadPDF() {
+            html2canvas(document.getElementById('invoiceContainer')).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                const heightLeft = imgHeight;
+
+                let position = 0;
+                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                doc.save('invoice.pdf');
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+            });
         }
     </script>
 </body>
