@@ -62,6 +62,20 @@
             margin-bottom: 10px;
             border-radius: 8px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #dc3545;
+        }
+        .delete-btn{
+            width: 10%;
         }
     </style>
 </head>
@@ -93,17 +107,25 @@
         let userEntries = JSON.parse(localStorage.getItem('userEntries')) || [];
 
         function displayUserData() {
-            // Sort the entries by expire date
             userEntries.sort((a, b) => new Date(a.expireDate) - new Date(b.expireDate));
             userDataContainer.innerHTML = '';
-            userEntries.forEach(entry => {
+            userEntries.forEach((entry, index) => {
                 const userDataDiv = document.createElement('div');
                 userDataDiv.classList.add('user-data');
-                userDataDiv.innerHTML = `<strong>Student Name:</strong> ${entry.studentName}<br>
-                                         <strong>Chosen Date:</strong> ${entry.chosenDate}<br>
-                                         <strong>Expire Date:</strong> ${entry.expireDate}`;
+                userDataDiv.innerHTML = `
+                    <strong>Student Name:</strong> ${entry.studentName}<br>
+                    <strong>Chosen Date:</strong> ${entry.chosenDate}<br>
+                    <strong>Expire Date:</strong> ${entry.expireDate}
+                    <button class="delete-btn" onclick="deleteEntry(${index})">&#10060;</button>
+                `;
                 userDataContainer.appendChild(userDataDiv);
             });
+        }
+
+        function deleteEntry(index) {
+            userEntries.splice(index, 1);
+            localStorage.setItem('userEntries', JSON.stringify(userEntries));
+            displayUserData();
         }
 
         displayUserData();
