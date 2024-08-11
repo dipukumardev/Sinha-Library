@@ -1,17 +1,18 @@
+/* Registration.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #eef2f7;
-    color: #333;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .form-container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .header {
@@ -21,76 +22,74 @@ body {
 }
 
 .logo {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+    max-width: 100px;
+    height: auto;
+    margin-right: 20px;
 }
 
-.title-section {
-    margin-left: 20px;
-}
-
-h1 {
+.title-section h1 {
     margin: 0;
-    font-size: 28px;
-    color: #007bff;
+    font-size: 24px;
 }
 
-h2, h3 {
-    margin: 0;
-    font-size: 16px;
-    color: #555;
+.title-section h2, .title-section h3 {
+    margin: 5px 0;
+    font-size: 18px;
 }
 
 .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 10px;
-    gap: 20px;
+    margin-bottom: 15px;
 }
 
 .form-group {
-    flex: 1;
-    margin-right: 10px;
-    min-width: 180px;
+    margin-bottom: 10px;
 }
 
-.form-group label {
+label {
     display: block;
-    margin-bottom: 5px;
     font-weight: bold;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
+input[type="text"], input[type="date"], select {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
+    margin-top: 5px;
+    border: 1px solid #ddd;
     border-radius: 4px;
-    transition: border-color 0.2s;
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    border-color: #007bff;
-    outline: none;
+input[type="file"] {
+    margin-top: 5px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+}
+
+.radio-group {
+    display: flex;
+    gap: 10px;
 }
 
 .terms-and-conditions {
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .terms-and-conditions h4 {
-    margin-bottom: 10px;
-    font-weight: bold;
+    margin: 0 0 10px;
+    font-size: 18px;
 }
 
 .terms-and-conditions p {
     margin: 0;
-    font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.6;
 }
 
 button {
@@ -98,12 +97,18 @@ button {
     color: #fff;
     border: none;
     padding: 10px 20px;
+    font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s;
 }
 
 button:hover {
     background-color: #0056b3;
+}
+
+img#studentImagePreview {
+    display: block;
+    margin-top: 10px;
+    max-width: 100px;
+    height: auto;
 }

@@ -97,14 +97,22 @@
 
         .details {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-between;
             margin-bottom: 20px;
         }
 
-        .left, .right {
-            flex: 1 1 45%;
-            margin-bottom: 20px;
+        .left {
+            flex: 1;
+            margin-right: 20px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .right {
+            flex: 1;
+            text-align: right;
             background-color: #f8f9fa;
             padding: 15px;
             border-radius: 5px;
@@ -123,11 +131,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .terms-conditions h3 {
-            margin-top: 0;
-            color: #007bff;
-        }
-
         button {
             background-color: #007bff;
             color: white;
@@ -143,61 +146,32 @@
         }
 
         @media (max-width: 768px) {
-            .container {
-                margin: 20px auto;
-                padding: 10px;
-            }
-
-            .header {
+            .header, .details {
                 flex-direction: column;
-                align-items: center;
+                text-align: center;
             }
 
             .logo {
                 width: 100px;
-                margin-bottom: 10px;
             }
 
-            .left, .right {
-                flex: 1 1 100%;
-            }
-
-            h2 {
-                font-size: 18px;
-            }
-
-            .invoice-table th, .invoice-table td {
-                padding: 8px;
-                font-size: 14px;
-            }
-
-            button {
-                font-size: 14px;
-                padding: 8px 16px;
+            .right, .left {
+                margin: 10px 0;
             }
         }
 
         @media (max-width: 480px) {
-            h2 {
-                font-size: 16px;
-            }
-
-            .logo {
-                width: 80px;
+            .header h2, .terms-conditions h3, button {
+                font-size: 14px;
             }
 
             .invoice-table th, .invoice-table td {
-                font-size: 12px;
-                padding: 6px;
-            }
-
-            .form-section input, .form-section select, .form-section button {
-                width: calc(100% - 12px);
                 padding: 8px;
             }
 
-            .terms-conditions h3 {
-                font-size: 16px;
+            .form-section input, .form-section select, .form-section button {
+                width: calc(100% - 10px);
+                padding: 8px;
             }
         }
     </style>
@@ -215,15 +189,18 @@
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name"><br>
 
+
+
                     <label for="memberID">Member ID:</label>
                     <input type="text" id="memberID" name="memberID"><br>
+
 
                     <label for="idType">Please select Your slot:</label>
                     <select id="idType" name="idType" onchange="showInputField()">
                         <option value="" disabled selected>Select your option</option>
                         <option value="aadhar">Full day [6am to 10pm]</option>
                         <option value="pan">Morning [6am to 12pm]</option>
-                        <option value="school">Evening [2pm to 10pm]</option>
+                        <option value="school">Evening[2pm to 10pm]</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -291,81 +268,70 @@
             <h3>Terms and Conditions</h3>
             <p>1. Fee once deposited will not be REFUNDED.</p>
             <p>2. If you are absent it will be your responsibility.</p>
-            <p>3. You can leave your books and copy on your desk only if you are in full timing slot.</p>
-            <p>4. If you are not maintain the attendance register on daily basis then you are considered as absent and your seat will be removed.</p>
-            <p>5. If you choose full-time and you are absent for more than 7 days without informing, your seat will not be reserved.</p>
+            <p>3. You can leave your books and copy in the library at your own risk.</p>
+            <p>4. If you are absent for more than 7 days, it is necessary to inform the library.</p>
+            <p>5. All rights reserved with the owner.</p>
+            <p><strong>Thank You!</strong></p>
         </div>
+
         <button onclick="downloadPDF()">Download PDF</button>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+
     <script>
-        let currentType = '';
+        const { jsPDF } = window.jspdf;
 
-        function showInputField(type) {
-            currentType = type;
-            const inputField = document.getElementById('inputField');
-            const idLabel = document.getElementById('idLabel');
-            const input = document.getElementById('idValue');
-
-            input.type = (type === 'invoiceDate' || type === 'startDate' || type === 'expiryDate') ? 'date' : 'text';
-            idLabel.textContent = getLabelText(type);
-            inputField.classList.remove('hidden');
-        }
-
-        function getLabelText(type) {
-            switch (type) {
-                case 'invoiceDate':
-                    return 'Invoice Date:';
-                case 'program':
-                    return 'Program:';
-                case 'startDate':
-                    return 'Start Date:';
-                case 'expiryDate':
-                    return 'Expiry Date:';
-                case 'amount':
-                    return 'Amount:';
-                case 'enrollmentFee':
-                    return 'Enrollment Fee:';
-                case 'discount':
-                    return 'Discount:';
-                case 'finalAmount':
-                    return 'Final Amount:';
-                case 'paidAmount':
-                    return 'Paid Amount:';
-                case 'dueAmount':
-                    return 'Due Amount:';
-                default:
-                    return '';
-            }
+        function showInputField() {
+            document.getElementById('inputField').classList.remove('hidden');
         }
 
         function updateTable() {
-            if (currentType) {
-                const idValue = document.getElementById('idValue').value;
-                const tableCells = document.querySelectorAll(`[data-label='${currentType}']`);
+            const selectedField = document.getElementById('idType').value;
+            const inputField = document.getElementById('idValue').value;
+            const invoiceBody = document.getElementById('invoiceBody');
+            const rows = invoiceBody.getElementsByTagName('tr');
 
-                tableCells.forEach(cell => {
-                    cell.textContent = idValue || '--';
-                });
-
-                document.getElementById('inputField').classList.add('hidden');
+            for (let row of rows) {
+                const cells = row.getElementsByTagName('td');
+                for (let cell of cells) {
+                    if (cell.dataset.label === selectedField) {
+                        cell.innerHTML = inputField;
+                    }
+                }
             }
+
+            document.getElementById('inputField').classList.add('hidden');
         }
 
         function downloadPDF() {
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const pageHeight = doc.internal.pageSize.height;
+            let position = 0;
+
             html2canvas(document.getElementById('invoiceContainer')).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
                 const imgWidth = 210; // A4 width in mm
-                const pageHeight = 295; // A4 height in mm
                 const imgHeight = canvas.height * imgWidth / canvas.width;
-                const heightLeft = imgHeight;
 
-                let position = 0;
-                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                if (imgHeight > pageHeight) {
+                    let heightLeft = imgHeight;
+
+                    while (heightLeft > 0) {
+                        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                        position -= pageHeight;
+
+                        if (heightLeft > 0) {
+                            doc.addPage();
+                            position = 0;
+                        }
+                    }
+                } else {
+                    doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                }
+
                 doc.save('invoice.pdf');
             }).catch(error => {
                 console.error('Error generating PDF:', error);

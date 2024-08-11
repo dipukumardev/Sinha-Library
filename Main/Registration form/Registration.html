@@ -73,6 +73,12 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="identificationNumber">Identification Number:</label>
+                    <input type="text" id="identificationNumber" name="identificationNumber" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
                     <label for="examPreparing">Exam Preparing For:</label>
                     <input type="text" id="examPreparing" name="examPreparing" required>
                 </div>
@@ -80,11 +86,12 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="slots">SLOTS:</label>
-                    <input type="checkbox" name="slots" value="Full Time"> Full Time [6am to 10pm]
-                    <input type="checkbox" name="slots" value="Morning [6am to 2pm]"> Morning [6am to 2pm]
-                    <input type="checkbox" name="slots" value="Evening [2pm to 10pm]"> Evening [2pm to 10pm]
-                    <input type="checkbox" name="slots" value="Other"> Other
-                    <!-- <input type="checkbox" name="slots" value="6 pm to 10 pm"> 6 pm to 10 pm -->
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="slots" value="Full Time"> Full Time [6am to 10pm]</label>
+                        <label><input type="checkbox" name="slots" value="Morning [6am to 2pm]"> Morning [6am to 2pm]</label>
+                        <label><input type="checkbox" name="slots" value="Evening [2pm to 10pm]"> Evening [2pm to 10pm]</label>
+                        <label><input type="checkbox" name="slots" value="Other"> Other</label>
+                    </div>
                 </div>
             </div>
             <div class="form-row">
@@ -115,11 +122,11 @@
             <div class="terms-and-conditions">
                 <h4>Terms and Conditions</h4>
                 <p>
-                    1. Fee Once deposite will not be REFUNDED<br>
-                    2. If you ae absent it will be your responsibility<br>
-                    3. You can leave your books and copy on your desk only if you are in full timing slot.<br>
-                    4. if you choose full-time and you are absent for more than 7 days without informing, your seat will not be reserved.<br>
-                    5. If you are not maintain the attendance register on daily basis then you are considered as absent ans your set will be removed.
+                    1. Fee Once deposited will not be REFUNDED.<br>
+                    2. If you are absent, it will be your responsibility.<br>
+                    3. You can leave your books and copy on your desk only if you are in the full timing slot.<br>
+                    4. If you choose full-time and are absent for more than 7 days without informing, your seat will not be reserved.<br>
+                    5. If you do not maintain the attendance register on a daily basis, you will be considered absent and your seat will be removed.
                 </p>
             </div>
             <div class="form-row">
