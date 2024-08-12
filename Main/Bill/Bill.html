@@ -67,7 +67,7 @@
         input,
         select,
         textarea {
-            width: calc(100% - 16px);
+            width: 100%;
             padding: 8px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
@@ -125,7 +125,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            width: 100%;
+            width: 30%;
             font-size: 16px;
         }
 
@@ -154,12 +154,14 @@
 
             .invoice-summary strong {
                 margin: 5px 0;
+                font-size: 12px;
             }
 
             .invoice-summary input {
-                width: calc(100% - 20px);
+                width: 30%;
                 margin-left: 0;
-                margin-top: 5px;
+                margin-top: 3px;
+                
             }
         }
 
@@ -175,6 +177,7 @@
 
             #download {
                 font-size: 14px;
+                width: 70%;
             }
         }
 
@@ -238,14 +241,12 @@
             <table class="invoice-table">
                 <tr>
                     <th>Invoice Date</th>
-                    <th>Program</th>
                     <th>Start Date</th>
                     <th>Expiry Date</th>
                     <th>Amount</th>
                 </tr>
                 <tr>
                     <td><input type="date" id="invoiceDate" name="invoiceDate"></td>
-                    <td><input type="text" id="program" name="program" placeholder="Enter Program"></td>
                     <td><input type="date" id="startDate" name="startDate"></td>
                     <td><input type="date" id="expiryDate" name="expiryDate"></td>
                     <td><input type="number" id="amount" name="amount" placeholder="Enter Amount"></td>
@@ -254,7 +255,7 @@
             <div class="invoice-summary">
                 <strong>Enrollment Fee: <input type="number" id="enrollmentFee" name="enrollmentFee"
                         placeholder="Enter Fee"></strong>
-                <strong>Discount: <input type="number" id="discount" name="discount"
+                <strong>Discount &nbsp: &nbsp &nbsp &nbsp &nbsp<input type="number" id="discount" name="discount"
                         placeholder="Enter Discount"></strong>
                 <strong>Final Amount: <input type="number" id="finalAmount" name="finalAmount"
                         placeholder="Final Amount"></strong>
@@ -281,7 +282,7 @@
         </div>
 
         <!-- Download Button -->
-        <button id="download">Download as PDF</button>
+        <button id="download">Bill Of SINHA lIBRARY</button>
     </div>
 
     <!-- Script to generate PDF -->
@@ -289,7 +290,7 @@
     <script>
         document.getElementById('download').addEventListener('click', function () {
             var element = document.getElementById('form-content');
-            html2pdf().from(element).save('invoice.pdf');
+            html2pdf().from(element).save('Your bill.pdf');
         });
     </script>
 </body>
