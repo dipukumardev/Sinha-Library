@@ -1,230 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sinha Library</title>
-    <link rel="shortcut icon" href="/image/facicon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/Main/image/facicon/favicon.ico" type="image/x-icon">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #e9ecef;
-            margin: 0;
+            background-color: #f7f7f7;
+            margin: 20px;
             padding: 0;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 50px auto;
+        .form-container {
+            background-color: white;
             padding: 20px;
-            background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
         }
 
-        h2 {
+        h2,
+        h3 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .upper-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .upper-section div {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 10px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .user-input-section {
+            background-color: #fafafa;
+        }
+
+        .library-info-section {
+            background-color: #f2f2f2;
+        }
+
+        .library-info-section p {
+            margin: 5px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input,
+        select,
+        textarea {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="date"],
+        input[type="number"],
+        input[type="text"] {
             text-align: center;
-            color: #007bff;
         }
 
         .invoice-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin-bottom: 20px;
         }
 
-        .invoice-table th, .invoice-table td {
-            border: 1px solid #ddd;
+        .invoice-table th,
+        .invoice-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            background-color: #fafafa;
+        }
+
+        .invoice-summary {
+            text-align: right;
+            padding-right: 20px;
+        }
+
+        .invoice-summary strong {
+            display: block;
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .invoice-summary input {
+            width: 100px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            margin-left: 10px;
+            box-sizing: border-box;
+        }
+
+        #download {
+            display: block;
+            background-color: #4CAF50;
+            color: white;
             padding: 12px;
             text-align: center;
-        }
-
-        .invoice-table th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .form-section {
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-
-        .form-section label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #495057;
-        }
-
-        .form-section input, .form-section select, .form-section button {
-            width: calc(100% - 16px);
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            border: 1px solid #ced4da;
-        }
-
-        .form-section button {
-            background-color: #007bff;
-            color: white;
             border: none;
-            cursor: pointer;
-        }
-
-        .form-section button:hover {
-            background-color: #0056b3;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-        }
-
-        .logo {
-            width: 150px;
-            border-radius: 8px;
-        }
-
-        .details {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .left {
-            flex: 1;
-            margin-right: 20px;
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .right {
-            flex: 1;
-            text-align: right;
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .right p {
-            margin: 5px 0;
-        }
-
-        .terms-conditions {
-            margin-top: 30px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            font-size: 15px;
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            width: 100%;
             font-size: 16px;
         }
 
-        button:hover {
-            background-color: #0056b3;
+        #download:hover {
+            background-color: #45a049;
         }
 
+        textarea {
+            height: 100px;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .header, .details {
+            .upper-section {
                 flex-direction: column;
-                text-align: center;
             }
 
-            .logo {
-                width: 100px;
-            }
-
-            .right, .left {
+            .upper-section div {
                 margin: 10px 0;
+            }
+
+            .invoice-summary {
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .invoice-summary strong {
+                margin: 5px 0;
+            }
+
+            .invoice-summary input {
+                width: calc(100% - 20px);
+                margin-left: 0;
+                margin-top: 5px;
             }
         }
 
         @media (max-width: 480px) {
-            .header h2, .terms-conditions h3, button {
+            .form-container {
+                padding: 10px;
+            }
+
+            h2,
+            h3 {
+                font-size: 18px;
+            }
+
+            #download {
                 font-size: 14px;
             }
+        }
 
-            .invoice-table th, .invoice-table td {
-                padding: 8px;
-            }
+        .image {
+            width: 100%;
+            height: 10vh;
+            border-bottom: 1px solid black;
+            display: flex;
+            justify-content: space-between;
+        }
 
-            .form-section input, .form-section select, .form-section button {
-                width: calc(100% - 10px);
-                padding: 8px;
-            }
+        .image img {
+            width: 10%;
+            height: 100%;
         }
     </style>
 </head>
+
 <body>
-    <div class="container" id="invoiceContainer">
-        <div class="header">
-            <img src="./Sinha library.jpg" alt="Library Logo" class="logo">
-            <h2>Add some extra points</h2>
+    <div class="form-container" id="form-content">
+        <!-- Part 1: Upper Section -->
+        <div class="image">
+            <img src="/Main/image/Logo/Sinha library.jpg" alt="">
+            <h4>Best Place for study</h4>
         </div>
+        <div class="upper-section">
+            <!-- Sub-Box 1: User Input Section -->
+            <div class="user-input-section">
+                <h3>Student Details</h3>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
 
-        <div class="details">
-            <form id="userForm" class="left">
-                <div class="form-section">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name"><br>
+                <label for="memberid">Member ID:</label>
+                <input type="text" id="memberid" name="memberid">
 
+                <label for="slot">Select Slot:</label>
+                <select id="slot" name="slot">
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
+                </select>
+            </div>
 
-
-                    <label for="memberID">Member ID:</label>
-                    <input type="text" id="memberID" name="memberID"><br>
-
-
-                    <label for="idType">Please select Your slot:</label>
-                    <select id="idType" name="idType" onchange="showInputField()">
-                        <option value="" disabled selected>Select your option</option>
-                        <option value="aadhar">Full day [6am to 10pm]</option>
-                        <option value="pan">Morning [6am to 12pm]</option>
-                        <option value="school">Evening[2pm to 10pm]</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-            </form>
-            <div class="right">
-                <p><strong>SINHA LIBRARY</strong></p>
-                <p>Address: Surya Vihar Colony</p>
-                <p>Dhanbad, Jharkhand</p>
+            <!-- Sub-Box 2: Constant Values -->
+            <div class="library-info-section">
+                <h3>Library Information</h3>
+                <p><strong>Sinha Library</strong></p>
+                <p>Address:surya vihar colony
+                    Dhanbad jharkhand</p>
                 <p>Email: sinhalibrary9700@gmail.com</p>
                 <p>Phone: 7319692439</p>
-                <a href="https://sinhalibrary.dipu.tech/">Website: Sinha Library</a>
+                <p>Website:<a href="">Sinhalibrary.dipu.tech</a></p>
             </div>
         </div>
 
-        <div id="inputField" class="hidden form-section">
-            <label for="idValue" id="idLabel">Selected Value:</label>
-            <input type="text" id="idValue" name="idValue">
-            <button type="button" onclick="updateTable()">Update Table</button>
-        </div>
-
-        <h2>Invoice Table</h2>
-        <table class="invoice-table">
-            <thead>
+        <!-- Part 2: Middle Section -->
+        <div>
+            <h2>Invoice Details</h2>
+            <table class="invoice-table">
                 <tr>
                     <th>Invoice Date</th>
                     <th>Program</th>
@@ -232,112 +241,55 @@
                     <th>Expiry Date</th>
                     <th>Amount</th>
                 </tr>
-            </thead>
-            <tbody id="invoiceBody">
                 <tr>
-                    <td data-label="invoiceDate" onclick="showInputField('invoiceDate')">--</td>
-                    <td data-label="program" onclick="showInputField('program')">--</td>
-                    <td data-label="startDate" onclick="showInputField('startDate')">--</td>
-                    <td data-label="expiryDate" onclick="showInputField('expiryDate')">--</td>
-                    <td data-label="amount" onclick="showInputField('amount')">--</td>
+                    <td><input type="date" id="invoiceDate" name="invoiceDate"></td>
+                    <td><input type="text" id="program" name="program" placeholder="Enter Program"></td>
+                    <td><input type="date" id="startDate" name="startDate"></td>
+                    <td><input type="date" id="expiryDate" name="expiryDate"></td>
+                    <td><input type="number" id="amount" name="amount" placeholder="Enter Amount"></td>
                 </tr>
-                <tr>
-                    <td colspan="4">Enrollment Fee</td>
-                    <td data-label="enrollmentFee" onclick="showInputField('enrollmentFee')">--</td>
-                </tr>
-                <tr>
-                    <td colspan="4">Discount</td>
-                    <td data-label="discount" onclick="showInputField('discount')">--</td>
-                </tr>
-                <tr>
-                    <td colspan="4"><strong>Final Amount</strong></td>
-                    <td data-label="finalAmount" onclick="showInputField('finalAmount')"><strong>--</strong></td>
-                </tr>
-                <tr>
-                    <td colspan="4">Paid Amount</td>
-                    <td data-label="paidAmount" onclick="showInputField('paidAmount')">--</td>
-                </tr>
-                <tr>
-                    <td colspan="4">Due Amount</td>
-                    <td data-label="dueAmount" onclick="showInputField('dueAmount')">--</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!-- Terms and Conditions Section -->
-        <div class="terms-conditions">
-            <h3>Terms and Conditions</h3>
-            <p>1. Fee once deposited will not be REFUNDED.</p>
-            <p>2. If you are absent it will be your responsibility.</p>
-            <p>3. You can leave your books and copy in the library at your own risk.</p>
-            <p>4. If you are absent for more than 7 days, it is necessary to inform the library.</p>
-            <p>5. All rights reserved with the owner.</p>
-            <p><strong>Thank You!</strong></p>
+            </table>
+            <div class="invoice-summary">
+                <strong>Enrollment Fee: <input type="number" id="enrollmentFee" name="enrollmentFee"
+                        placeholder="Enter Fee"></strong>
+                <strong>Discount: <input type="number" id="discount" name="discount"
+                        placeholder="Enter Discount"></strong>
+                <strong>Final Amount: <input type="number" id="finalAmount" name="finalAmount"
+                        placeholder="Final Amount"></strong>
+                <strong>Paid Amount: <input type="number" id="paidAmount" name="paidAmount"
+                        placeholder="Paid Amount"></strong>
+                <strong>Due Amount: <input type="number" id="dueAmount" name="dueAmount"
+                        placeholder="Due Amount"></strong>
+            </div>
         </div>
 
-        <button onclick="downloadPDF()">Download PDF</button>
+        <!-- Part 3: Lower Section -->
+        <div>
+            <h4>Terms and Conditions</h4>
+            <p>
+                1. Fee Once deposited will not be REFUNDED.<br>
+                2. If you are absent, it will be your responsibility.<br>
+                3. You can leave your books and copy on your desk only if you are in full timing slot.<br>
+                4. If you choose full-time and are absent for more than 7 days without informing, your seat will not be
+                reserved.<br>
+                5. If you do not maintain the attendance register on daily basis, you will be considered absent and your
+                seat will be removed.
+            </p>
+
+        </div>
+
+        <!-- Download Button -->
+        <button id="download">Download as PDF</button>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-
+    <!-- Script to generate PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script>
-        const { jsPDF } = window.jspdf;
-
-        function showInputField() {
-            document.getElementById('inputField').classList.remove('hidden');
-        }
-
-        function updateTable() {
-            const selectedField = document.getElementById('idType').value;
-            const inputField = document.getElementById('idValue').value;
-            const invoiceBody = document.getElementById('invoiceBody');
-            const rows = invoiceBody.getElementsByTagName('tr');
-
-            for (let row of rows) {
-                const cells = row.getElementsByTagName('td');
-                for (let cell of cells) {
-                    if (cell.dataset.label === selectedField) {
-                        cell.innerHTML = inputField;
-                    }
-                }
-            }
-
-            document.getElementById('inputField').classList.add('hidden');
-        }
-
-        function downloadPDF() {
-            const doc = new jsPDF('p', 'mm', 'a4');
-            const pageHeight = doc.internal.pageSize.height;
-            let position = 0;
-
-            html2canvas(document.getElementById('invoiceContainer')).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const imgWidth = 210; // A4 width in mm
-                const imgHeight = canvas.height * imgWidth / canvas.width;
-
-                if (imgHeight > pageHeight) {
-                    let heightLeft = imgHeight;
-
-                    while (heightLeft > 0) {
-                        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                        heightLeft -= pageHeight;
-                        position -= pageHeight;
-
-                        if (heightLeft > 0) {
-                            doc.addPage();
-                            position = 0;
-                        }
-                    }
-                } else {
-                    doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                }
-
-                doc.save('invoice.pdf');
-            }).catch(error => {
-                console.error('Error generating PDF:', error);
-            });
-        }
+        document.getElementById('download').addEventListener('click', function () {
+            var element = document.getElementById('form-content');
+            html2pdf().from(element).save('invoice.pdf');
+        });
     </script>
 </body>
+
 </html>
