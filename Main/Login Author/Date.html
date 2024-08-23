@@ -74,7 +74,7 @@
             font-size: 18px;
             color: #dc3545;
         }
-        .delete-btn{
+        .delete-btn {
             width: 10%;
         }
     </style>
@@ -82,6 +82,10 @@
 <body>
     <div class="form-container">
         <form id="studentForm">
+            <div class="form-group">
+                <label for="memberId">Member ID</label>
+                <input type="text" id="memberId" name="memberId" required>
+            </div>
             <div class="form-group">
                 <label for="studentName">Student Name</label>
                 <input type="text" id="studentName" name="studentName" required>
@@ -113,6 +117,7 @@
                 const userDataDiv = document.createElement('div');
                 userDataDiv.classList.add('user-data');
                 userDataDiv.innerHTML = `
+                    <strong>Member ID:</strong> ${entry.memberId}<br>
                     <strong>Student Name:</strong> ${entry.studentName}<br>
                     <strong>Chosen Date:</strong> ${entry.chosenDate}<br>
                     <strong>Expire Date:</strong> ${entry.expireDate}
@@ -131,12 +136,13 @@
         displayUserData();
 
         document.getElementById('addButton').addEventListener('click', function() {
+            const memberId = document.getElementById('memberId').value;
             const studentName = document.getElementById('studentName').value;
             const chosenDate = document.getElementById('chosenDate').value;
             const expireDate = document.getElementById('expireDate').value;
 
-            if (studentName && chosenDate && expireDate) {
-                const entry = { studentName, chosenDate, expireDate };
+            if (memberId && studentName && chosenDate && expireDate) {
+                const entry = { memberId, studentName, chosenDate, expireDate };
                 userEntries.push(entry);
                 localStorage.setItem('userEntries', JSON.stringify(userEntries));
                 displayUserData();
@@ -149,8 +155,8 @@
         document.getElementById('downloadButton').addEventListener('click', function() {
             if (userEntries.length > 0) {
                 const csvContent = 'data:text/csv;charset=utf-8,' + 
-                    ['Student Name,Chosen Date,Expire Date']
-                    .concat(userEntries.map(e => `${e.studentName},${e.chosenDate},${e.expireDate}`))
+                    ['Member ID,Student Name,Chosen Date,Expire Date']
+                    .concat(userEntries.map(e => `${e.memberId},${e.studentName},${e.chosenDate},${e.expireDate}`))
                     .join('\n');
                 const encodedUri = encodeURI(csvContent);
                 const link = document.createElement('a');
