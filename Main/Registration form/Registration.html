@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="shortcut icon" href="/image/facicon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="Registration.css">
 </head>
+
 <body>
     <div class="form-container">
         <div class="header">
@@ -68,8 +70,8 @@
                     <select id="identificationType" name="identificationType" required>
                         <option value="Aadhar Card">Aadhar Card</option>
                         <option value="PAN Card">PAN Card</option>
-                        <option value="School ID">voter ID</option>
-                        <option value="College ID">Other</option>
+                        <option value="voter ID">Voter ID</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -85,15 +87,11 @@
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="slots">SLOTS:</label>
-                    <div class="checkbox-group">
-                        <label><input type="checkbox" name="slots" value="Full Time"> Full Time [6am to 10pm]</label>
-                        <label><input type="checkbox" name="slots" value="Morning [6am to 2pm]"> Morning [6am to 2pm]</label>
-                        <label><input type="checkbox" name="slots" value="Evening [2pm to 10pm]"> Evening [2pm to 10pm]</label>
-                        <label><input type="checkbox" name="slots" value="Other"> Other</label>
-                    </div>
+                    <label for="preferredSlots">Preferred Slots:</label>
+                    <input type="text" id="preferredSlots" name="preferredSlots" required>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="form-group">
                     <label for="amountPaid">Amount Paid:</label>
@@ -107,8 +105,10 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="studentImageFile">Student's Image:</label>
-                    <input type="file" id="studentImageFile" name="studentImageFile" accept="image/*" required onchange="previewStudentImage(event)">
-                    <img id="studentImagePreview" src="" alt="Student Image Preview" style="display:none; width:100px; height:auto;">
+                    <input type="file" id="studentImageFile" name="studentImageFile" accept="image/*" required
+                        onchange="previewStudentImage(event)">
+                    <img id="studentImagePreview" src="" alt="Student Image Preview"
+                        style="display:none; width:100px; height:auto;">
                 </div>
                 <div class="form-group">
                     <label for="studentSignatureFile">Student's Signature:</label>
@@ -116,7 +116,8 @@
                 </div>
                 <div class="form-group">
                     <label for="authorizedSignatureFile">Authorized Signature:</label>
-                    <input type="file" id="authorizedSignatureFile" name="authorizedSignatureFile" accept="image/*" required>
+                    <input type="file" id="authorizedSignatureFile" name="authorizedSignatureFile" accept="image/*"
+                        required>
                 </div>
             </div>
             <div class="terms-and-conditions">
@@ -125,15 +126,18 @@
                     1. Fee Once deposited will not be REFUNDED.<br>
                     2. If you are absent, it will be your responsibility.<br>
                     3. You can leave your books and copy on your desk only if you are in full timing slot.<br>
-                    4. If you choose full-time and are absent for more than 7 days without informing, your seat will not be reserved.<br>
-                    5. If you do not maintain the attendance register on daily basis, you will be considered absent and your seat will be removed.
+                    4. If you choose full-time and are absent for more than 7 days without informing, your seat will not
+                    be reserved.<br>
+                    5. If you do not maintain the attendance register on a daily basis, you will be considered absent
+                    and your seat will be removed.
                 </p>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="termsAndConditions">
                         <input type="checkbox" id="termsAndConditions" name="termsAndConditions" required>
-                        I have read and agree to the <a href="terms-and-conditions.html" target="_blank">Terms and Conditions</a>.
+                        I have read and agree to the <a href="terms-and-conditions.html" target="_blank">Terms and
+                            Conditions</a>.
                     </label>
                 </div>
             </div>
@@ -145,4 +149,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="Registration.js"></script>
 </body>
+
 </html>

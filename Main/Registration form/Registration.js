@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Function to generate PDF
     window.generatePDF = async function() {
         const { jsPDF } = window.jspdf;
 
@@ -50,94 +51,93 @@ document.addEventListener("DOMContentLoaded", function() {
                 yOffset += 10;
                 doc.text(`Exam Preparing For: ${formValues.examPreparing}`, 10, yOffset);
                 yOffset += 10;
-                doc.text(`Slots: ${formValues.slots.join(', ')}`, 10, yOffset);
+
+                // Add preferred slots
+                doc.text(`Preferred Slots: ${formValues.preferredSlots}`, 10, yOffset);
                 yOffset += 10;
+
                 doc.text(`Amount Paid: ${formValues.amountPaid}`, 10, yOffset);
                 yOffset += 10;
                 doc.text(`Date: ${formValues.date}`, 10, yOffset);
-                yOffset += 10;
-
-                // Add student image, student signature, and authorized signature in a row
-                const images = [
-                    { id: 'studentImageFile', label: "Student's Image" },
-                    { id: 'studentSignatureFile', label: "Student's Signature" },
-                    { id: 'authorizedSignatureFile', label: "Authorized Signature" }
-                ];
-
-                let xOffset = 10;
-                for (const imgInfo of images) {
-                    await addImageToPDF(doc, imgInfo.id, xOffset, yOffset, imgInfo.label);
-                    xOffset += 50; // Adjust the offset to place images in a row
-                }
 
                 // Add terms and conditions
-                yOffset += 40; // Adjust this value based on the size of the image
+                yOffset += 10;
                 doc.setFontSize(10);
                 doc.text("Terms and Conditions", 10, yOffset);
                 yOffset += 10;
-                doc.text(" 1. Fee Once deposited will not be REFUNDED", 10, yOffset);
-                yOffset += 10;
-                doc.text(" 2. If you are absent, it will be your responsibility", 10, yOffset);
-                yOffset += 10;
-                doc.text(" 3. You can leave your books and copy on your desk only if you are in the full timing slot.", 10, yOffset);
-                yOffset += 10;
-                doc.text(" 4. If you choose full-time and are absent for more than 7 days without informing, your seat will not be reserved.", 10, yOffset);
-                yOffset += 10;
-                doc.text(" 5. If you do not maintain the attendance register on a daily basis, you will be considered absent and your seat will be removed.", 10, yOffset);
 
-                doc.save("membership_form.pdf");
-            };
+                const terms = [
+                    "1. Fee once deposited will not be REFUNDED.",
+                    "2. If you are absent, it will be your responsibility.",
+                    "3. You can leave your books and copy on your desk only if you are in the full timing slot.",
+                    "4. If you choose full-time and are absent for more than 7 days without informing, your seat will not be reserved.",
+                    "5. If you do not maintain the attendance register on a daily basis, you will be considered absent and your seat will be removed."
+                ];
 
-            logoImg.onerror = function() {
-                console.error("Failed to load the logo image");
+                for (const line of terms) {
+                    if (yOffset > doc.internal.pageSize.height - 30) { // Check if we are close to the bottom of the page
+                        doc.addPage(); // Add a new page if needed
+                        yOffset = 10; // Reset yOffset for new page
+                    }
+                    doc.text(line, 10, yOffset);
+                    yOffset += 10;
+                }
+
+                // Positioning for student image
+                if (formValues.studentImage) {
+                    const img = new Image();
+                    img.src = formValues.studentImage;
+                    img.onload = function() {
+                        const imgWidth = 40;
+                        const imgHeight = 40;
+                        const pageHeight = doc.internal.pageSize.height;
+                        const marginBottom = 210;
+                        const imgX = 150;
+                        const imgY = pageHeight - imgHeight - marginBottom;
+
+                        doc.addImage(img, 'JPEG', imgX, imgY, imgWidth, imgHeight);
+                        // Download PDF after adding the image
+                        doc.save(`${formValues.firstName}_MembershipForm.pdf`);
+                    };
+                } else {
+                    doc.save(`${formValues.firstName}_MembershipForm.pdf`);
+                }
             };
         } catch (error) {
-            console.error(error);
+            console.error("Error generating PDF:", error);
         }
     };
 
+    // Function to get form values
     function getFormValues() {
         return {
-            member_id: document.getElementById('member_id').value,
-            firstName: document.getElementById('firstName').value,
-            fathersName: document.getElementById('fathersName').value,
-            currentAddress: document.getElementById('currentAddress').value,
-            guardiansAddress: document.getElementById('guardiansAddress').value,
+            member_id: document.getElementById("member_id").value,
+            firstName: document.getElementById("firstName").value,
+            fathersName: document.getElementById("fathersName").value,
+            currentAddress: document.getElementById("currentAddress").value,
+            guardiansAddress: document.getElementById("guardiansAddress").value,
             gender: document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '',
-            contactNo: document.getElementById('contactNo').value,
-            guardiansNo: document.getElementById('guardiansNo').value,
-            identificationType: document.getElementById('identificationType').value,
-            identificationNumber: document.getElementById('identificationNumber').value,
-            examPreparing: document.getElementById('examPreparing').value,
-            slots: Array.from(document.querySelectorAll('input[name="slots"]:checked')).map(el => el.value),
-            amountPaid: document.getElementById('amountPaid').value,
-            date: document.getElementById('date').value,
-            termsAndConditionsAccepted: document.getElementById('termsAndConditions').checked
+            contactNo: document.getElementById("contactNo").value,
+            guardiansNo: document.getElementById("guardiansNo").value,
+            identificationType: document.getElementById("identificationType").value,
+            identificationNumber: document.getElementById("identificationNumber").value,
+            examPreparing: document.getElementById("examPreparing").value,
+            preferredSlots: document.getElementById("preferredSlots").value,
+            amountPaid: document.getElementById("amountPaid").value,
+            date: document.getElementById("date").value,
+            termsAndConditionsAccepted: document.getElementById("termsAndConditions").checked,
+            studentImage: document.getElementById("studentImagePreview").src
         };
     }
 
+    // Function to preview student image
     window.previewStudentImage = function(event) {
-        const output = document.getElementById('studentImagePreview');
-        output.src = URL.createObjectURL(event.target.files[0]);
-        output.style.display = 'block';
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById('studentImagePreview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
     };
-
-    async function addImageToPDF(doc, inputId, xOffset, yOffset, label) {
-        const inputFile = document.getElementById(inputId).files[0];
-        if (inputFile) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const img = new Image();
-                img.src = event.target.result;
-                img.onload = function() {
-                    doc.text(label, xOffset, yOffset);
-                    doc.addImage(img, 'JPEG', xOffset, yOffset + 10, 20, 20);
-                };
-            };
-            reader.readAsDataURL(inputFile);
-            await new Promise(resolve => reader.onloadend = resolve);
-        } else {
-            doc.text(`No ${label}`, xOffset, yOffset);
-        }
-    }
 });
