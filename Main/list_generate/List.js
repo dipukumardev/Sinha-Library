@@ -73,15 +73,35 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     downloadButton.addEventListener('click', () => {
-        const data = [];
+        let htmlContent = `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Total Amount</title>
+        </head>
+        <body>
+            <h1>Todo List</h1>
+            <ul>
+        `;
+
         todoList.querySelectorAll('li').forEach((li) => {
-            data.push(li.textContent);
+            htmlContent += `<li>${li.textContent}</li>`;
         });
-        const blob = new Blob([data.join('\n')], { type: 'text/plain' });
+
+        htmlContent += `
+            </ul>
+            <h2>Total Amount: ${totalAmountElem.textContent}</h2>
+        </body>
+        </html>
+        `;
+
+        const blob = new Blob([htmlContent], { type: 'text/html' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'todo-list.txt';
+        a.download = 'Total Amount.html';
         a.click();
         URL.revokeObjectURL(url);
     });
